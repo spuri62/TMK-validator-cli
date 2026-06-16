@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Task Model",
+  "type": "object",
+  "properties": {
+    "model": { "type": "string", "enum": ["Task"], "default": "Task" },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "inputParameters": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "outputParameters": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "given": { "type": "string" },
+          "makes": { "type": "string" },
+          "means": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "mechanismReference": { "type": "string" },
+                "actualArguments": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              },
+              "required": ["mechanismReference", "actualArguments"]
+            }
+          }
+        },
+        "required": ["name", "description", "inputParameters", "outputParameters", "means"]
+      }
+    }
+  },
+  "required": ["model", "tasks"]
+}

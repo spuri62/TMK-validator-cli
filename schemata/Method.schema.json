@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Method Model",
+  "type": "object",
+  "properties": {
+    "model": { "type": "string", "enum": ["Method"], "default": "Method" },
+    "methods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "inputParameters": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "outputParameters": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "requires": { "type": "string" },
+          "provides": { "type": "string" },
+          "assertions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "description": { "type": "string" },
+                "equivalentTo": { "type": "string" }
+              },
+              "required": ["name", "description", "equivalentTo"]
+            }
+          },
+          "organizer": {
+            "type": "object",
+            "properties": {
+              "startState": { "type": "string" },
+              "successState": { "type": "string" },
+              "failureState": { "type": "string" },
+              "states": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "goalInvocation": {
+                      "type": "object",
+                      "properties": {
+                        "goalReference": { "type": "string" },
+                        "type": { "type": "string" },
+                        "actualArguments": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        }
+                      },
+                      "required": ["goalReference", "type", "actualArguments"]
+                    }
+                  },
+                  "required": ["name", "goalInvocation"]
+                }
+              },
+              "transitions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "sourceState": { "type": "string" },
+                    "targetState": { "type": "string" },
+                    "dataCondition": { "type": "string" }
+                  },
+                  "required": ["sourceState", "targetState", "dataCondition"]
+                }
+              }
+            },
+            "required": ["startState", "successState", "failureState", "states", "transitions"]
+          }
+        },
+        "required": ["name", "description", "inputParameters", "outputParameters"]
+      }
+    }
+  },
+  "required": ["model", "methods"]
+}
